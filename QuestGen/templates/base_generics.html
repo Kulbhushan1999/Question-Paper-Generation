@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QuestGen</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-AMS_HTML"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2e6d9;
+            margin: 0;
+            padding: 0;
+        }
+        /* .navbar {
+            background-color: #333;
+        }
+        .navbar-brand, .navbar-nav li a {
+            color: #fff;
+            cursor: pointer;
+        } */
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <a class="navbar-brand" href="#">QuestGen</a>
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'new_question' %}">New Question</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'generate_paper' %}">Genarate Question Paper</a>
+            </li>
+          </ul>
+        </div>
+    </nav>
+
+    <div class="container py-4">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: { inlineMath: [["$", "$"]] }
+      });
+    </script>
+</body>
+<!-- <footer>
+    <div class="footer">
+        <p>©2023 QuestGen. All rights reserved.</p>
+    </div>
+</footer> -->
+</html>

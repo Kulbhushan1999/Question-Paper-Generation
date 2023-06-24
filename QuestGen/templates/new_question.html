@@ -1,0 +1,12 @@
+{% extends 'base_generics.html' %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+
+<h1 class="my-4 text-center">New Question</h1>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'base_generics.html' %}
+
+{% block content %}
+<h1 class="my-4 text-center font-weight-bold">Welcome to QuestGen!</h1>
+<div class="row">
+    {% for question in questions %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                {% if question.question_image %}
+                    <a href="{% url 'question_detail' question.id %}">
+                        <img class="card-img-top mb-3" src="{{ question.question_image.url }}" alt="Question image">
+                    </a>
+                {% else %}
+                    <h5 class="card-title">
+                        <a href="{% url 'question_detail' question.id %}" class="text-dark">{{ question.question_text }}</a>
+                    </h5>
+                {% endif %}
+                <button class="btn btn-danger delete-question" data-question-id="{{ question.id }}">Delete</button>
+            </div>
+        </div>
+    </div>
+    
+    {% empty %}
+        <div class="col-12">
+            <p class="text-center">No questions available at the moment.</p>
+        </div>
+    {% endfor %}
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    const csrftoken = getCookie('csrftoken');
+
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: { "X-CSRFToken": csrftoken }
+        });
+        
+        $('.delete-question').click(function() {
+            var questionId = $(this).data('question-id');
+            $.ajax({
+            url: '/delete_question/' + questionId + '/',
+            method: 'DELETE',
+            success: function(response) {
+            alert(response.message);
+            location.reload();
+            }
+        });
+    });
+});
+</script>
+{% endblock %}
